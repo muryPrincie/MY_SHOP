@@ -1,6 +1,9 @@
 <?php
 // includes/functions.php
-session_start();
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 function isLogged() {
     return isset($_SESSION['user_id']);

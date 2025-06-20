@@ -9,7 +9,13 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 
 $id = (int) $_GET['id'];
 
-$stmt = $pdo->prepare("SELECT p.*, c.name AS category_name FROM products p LEFT JOIN categories c ON p.category_id = c.id WHERE p.id = ?");
+$stmt = $pdo->prepare("
+    SELECT p.*, c.name AS category_name, b.name AS brand_name 
+    FROM products p 
+    LEFT JOIN categories c ON p.category_id = c.id
+    LEFT JOIN brands b ON p.brand_id = b.id
+    WHERE p.id = ?
+");
 $stmt->execute([$id]);
 $product = $stmt->fetch();
 
@@ -22,6 +28,7 @@ include 'includes/header.php';
 ?>
 
 <h2><?=htmlspecialchars($product['name'])?></h2>
+<p><strong>Marque :</strong> <?=htmlspecialchars($product['brand_name'] ?? 'Non défini')?></p>
 <p><strong>Catégorie :</strong> <?=htmlspecialchars($product['category_name'] ?? 'Non catégorisé')?></p>
 <p><strong>Prix :</strong> <?=number_format($product['price'], 0, ',', ' ')?> €</p>
 
