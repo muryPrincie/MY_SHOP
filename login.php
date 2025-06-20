@@ -21,7 +21,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['username'] = $user['username'];
             $_SESSION['admin'] = $user['admin'] ?? 0;
 
-            header('Location: index.php');
+            // Redirection conditionnelle selon rôle admin
+            if ($_SESSION['admin'] == 1) {
+                header('Location: admin/index.php');
+            } else {
+                header('Location: index.php');
+            }
             exit();
         } else {
             $errors[] = "Identifiants invalides.";
