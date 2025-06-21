@@ -35,10 +35,7 @@ if (isLogged()) {
             
             <a href="logout.php">Déconnexion</a>
         </nav>
-        <form action="search.php" method="get" class="search-form">
-            <input type="text" name="q" placeholder="Recherche..." required />
-            <button type="submit">🔍</button>
-        </form>
+    
     </div>
 </header>
 <?php endif; ?>
