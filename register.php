@@ -1,6 +1,6 @@
 <?php
-require 'includes/config.php';
-require 'includes/functions.php';
+require_once 'includes/config.php';
+require_once 'includes/functions.php';
 
 $errors = [];
 $success = false;
@@ -18,7 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($password !== $password_confirm) {
         $errors[] = "Les mots de passe ne correspondent pas.";
     } else {
-        // Vérifie que username ou email n'existe pas
         $stmt = $pdo->prepare("SELECT id FROM users WHERE username = ? OR email = ?");
         $stmt->execute([$username, $email]);
         if ($stmt->fetch()) {
@@ -44,13 +43,17 @@ include 'includes/header.php';
         <div class="message error"><?=htmlspecialchars($error)?></div>
     <?php endforeach; ?>
 
-    <form method="post">
+    <form method="post" action="register.php">
         <input type="text" name="username" placeholder="Nom d'utilisateur" required />
         <input type="email" name="email" placeholder="Adresse email" required />
         <input type="password" name="password" placeholder="Mot de passe" required />
         <input type="password" name="password_confirm" placeholder="Confirmer le mot de passe" required />
         <button type="submit">S'inscrire</button>
     </form>
+
+    <p class="form-toggle">
+        Déjà un compte ? <a href="login.php">Connectez-vous ici</a>.
+    </p>
 <?php endif; ?>
 
 <?php include 'includes/footer.php'; ?>

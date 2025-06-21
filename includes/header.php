@@ -1,5 +1,13 @@
 <?php
+require_once 'config.php';
+require_once 'functions.php';
 
+// Récupération des catégories UNIQUEMENT si l'utilisateur est connecté
+$categories = [];
+if (isLogged()) {
+    $stmt = $pdo->query("SELECT * FROM categories WHERE parent_id IS NULL");
+    $categories = $stmt->fetchAll();
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -10,18 +18,22 @@
     <link rel="stylesheet" href="/assets/css/style.css" />
 </head>
 <body>
+<?php if (isLogged()): ?>
 <header>
     <div class="container">
         <h1><a href="index.php">My Shop</a></h1>
         <nav>
             <a href="index.php">Accueil</a>
             <a href="cart.php">Panier</a>
-            <?php if (isLogged()): ?>
-                <a href="logout.php">Déconnexion</a>
-            <?php else: ?>
-                <a href="login.php">Connexion</a>
-                <a href="register.php">Inscription</a>
-            <?php endif; ?>
+            
+            <!-- Catégories dynamiques -->
+            <?php foreach ($categories as $cat): ?>
+                <a href="category.php?id=<?= htmlspecialchars($cat['id']) ?>">
+                    <?= htmlspecialchars($cat['name']) ?>
+                </a>
+            <?php endforeach; ?>
+            
+            <a href="logout.php">Déconnexion</a>
         </nav>
         <form action="search.php" method="get" class="search-form">
             <input type="text" name="q" placeholder="Recherche..." required />
@@ -29,4 +41,5 @@
         </form>
     </div>
 </header>
+<?php endif; ?>
 <main class="container">
