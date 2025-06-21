@@ -1,6 +1,6 @@
 <?php
-require 'includes/config.php';
-require 'includes/functions.php';
+require_once 'includes/config.php';
+require_once 'includes/functions.php';
 
 $errors = [];
 
@@ -21,7 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['username'] = $user['username'];
             $_SESSION['admin'] = $user['admin'] ?? 0;
 
-            // Redirection conditionnelle selon rôle admin
             if ($_SESSION['admin'] == 1) {
                 header('Location: admin/index.php');
             } else {
@@ -43,10 +42,14 @@ include 'includes/header.php';
     <div class="message error"><?=htmlspecialchars($error)?></div>
 <?php endforeach; ?>
 
-<form method="post">
+<form method="post" action="login.php">
     <input type="text" name="username" placeholder="Nom d'utilisateur" required />
     <input type="password" name="password" placeholder="Mot de passe" required />
     <button type="submit">Se connecter</button>
 </form>
 
-<?php include 'includes/footer.php'; ?>
+<p class="form-toggle">
+    Pas encore de compte ? <a href="register.php">Inscrivez-vous ici</a>.
+</p>
+
+<?

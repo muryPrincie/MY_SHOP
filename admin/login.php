@@ -1,6 +1,8 @@
 <?php
-require 'includes/config.php';
-require 'includes/functions.php';
+require_once 'includes/config.php';
+require_once 'includes/functions.php';
+require_once __DIR__ . '/../includes/auth.php';
+
 
 $errors = [];
 
@@ -44,8 +46,8 @@ include 'includes/header.php';
 <?php endforeach; ?>
 
 <form method="post">
-    <input type="text" name="username" placeholder="Nom d'utilisateur" required />
-    <input type="password" name="password" placeholder="Mot de passe" required />
+    <input type="text" name="username" placeholder="Nom d'utilisateur" require_onced />
+    <input type="password" name="password" placeholder="Mot de passe" require_onced />
     <button type="submit">Se connecter</button>
 </form>
 
