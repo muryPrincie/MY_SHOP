@@ -10,7 +10,6 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 
 $category_id = (int) $_GET['id'];
 
-// Récupère le nom de la catégorie
 $stmtCat = $pdo->prepare("SELECT name FROM categories WHERE id = ?");
 $stmtCat->execute([$category_id]);
 $category = $stmtCat->fetch();
@@ -20,20 +19,17 @@ if (!$category) {
     exit();
 }
 
-// Pagination
-$products_per_page = 4; // 4 produits par page
+$products_per_page = 4;
 $current_page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int) $_GET['page'] : 1;
 $offset = ($current_page - 1) * $products_per_page;
 
-// Nombre total de produits dans la catégorie
-$stmtCount = $pdo->prepare("SELECT COUNT(*) FROM products WHERE category_id = ?");
+$stmtCount = $pdo->prepare("SELECT COUNT(*) FROM products WHERE category_id = ? AND active = 1");
 $stmtCount->execute([$category_id]);
 $total_products = $stmtCount->fetchColumn();
 
 $total_pages = ceil($total_products / $products_per_page);
 
-// Récupère les produits paginés
-$stmt = $pdo->prepare("SELECT * FROM products WHERE category_id = ? ORDER BY name LIMIT ? OFFSET ?");
+$stmt = $pdo->prepare("SELECT * FROM products WHERE category_id = ? AND active = 1 ORDER BY name LIMIT ? OFFSET ?");
 $stmt->bindValue(1, $category_id, PDO::PARAM_INT);
 $stmt->bindValue(2, $products_per_page, PDO::PARAM_INT);
 $stmt->bindValue(3, $offset, PDO::PARAM_INT);
@@ -57,7 +53,6 @@ include 'includes/header.php';
         <?php endforeach; ?>
     </div>
 
-    <!-- Pagination -->
     <div class="pagination">
         <?php if ($current_page > 1): ?>
             <a href="?id=<?= $category_id ?>&page=<?= $current_page - 1 ?>">&laquo; Précédent</a>
@@ -76,6 +71,7 @@ include 'includes/header.php';
 <?php endif; ?>
 
 <?php include 'includes/footer.php'; ?>
+
 <style>
 body {
     background: url('assets/img/DC3.jpg') no-repeat center center fixed;
