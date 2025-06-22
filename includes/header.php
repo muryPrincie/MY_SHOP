@@ -22,19 +22,26 @@ if (isLogged()) {
 <header>
     <div class="container">
         <h1><a href="index.php">JUMP ERA</a></h1>
+
         <nav>
+            <!-- Barre de recherche tout à gauche -->
+            <form method="get" action="search.php" style="display:inline-block; margin-right:20px;">
+                <input type="text" name="q" placeholder="Rechercher un produit..." required style="padding:5px;" />
+                <button type="submit" style="padding:5px;">Recherche</button>
+            </form>
+
             <a href="index.php">Accueil</a>
             <a href="cart.php" class="cart-icon" title="Panier">
                 <img src="/assets/img/basket-cart.png" alt="Panier" />Panier
             </a>
-            
+
             <!-- Catégories dynamiques -->
             <?php foreach ($categories as $cat): ?>
                 <a href="category.php?id=<?= htmlspecialchars($cat['id']) ?>">
                     <?= htmlspecialchars($cat['name']) ?>
                 </a>
             <?php endforeach; ?>
-            
+
             <a href="logout.php">Déconnexion</a>
         </nav>
     </div>
