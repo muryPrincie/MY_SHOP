@@ -21,7 +21,7 @@ if (isLogged()) {
 <?php if (isLogged()): ?>
 <header>
     <div class="container">
-        <h1><a href="index.php">My Shop</a></h1>
+        <h1><a href="index.php">JUMP ERA</a></h1>
         <nav>
             <a href="index.php">Accueil</a>
             <a href="cart.php" class="cart-icon" title="Panier">

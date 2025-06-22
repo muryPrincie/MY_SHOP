@@ -16,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = $stmt->fetch();
 
         if ($user && password_verify($password, $user['password'])) {
-            // Connexion réussie
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['admin'] = $user['admin'] ?? 0;
@@ -36,7 +35,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 include 'includes/header.php';
 ?>
 
-<h2>Connexion</h2>
+<style>
+  body {
+    background-image: url('assets/img/DC2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+
+  form {
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 20px;
+    max-width: 400px;
+    margin: 40px auto;
+    border-radius: 8px;
+  }
+
+  .message.error {
+    background-color: #f8d7da;
+    color: #842029;
+    border: 1px solid #f5c2c7;
+    padding: 10px;
+    max-width: 400px;
+    margin: 20px auto;
+    border-radius: 4px;
+    text-align: center;
+  }
+</style>
+
+<h2 style="text-align:center; color:#222;">Connexion</h2>
 
 <?php foreach ($errors as $error): ?>
     <div class="message error"><?=htmlspecialchars($error)?></div>
@@ -48,8 +76,9 @@ include 'includes/header.php';
     <button type="submit">Se connecter</button>
 </form>
 
-<p class="form-toggle">
-    Pas encore de compte ? <a href="register.php">Inscrivez-vous ici</a>.
+<p class="form-toggle" style="text-align:center; color:#fff;">
+    Pas encore de compte ? <a href="register.php" style="color:#fff;">Inscrivez-vous ici</a>.
 </p>
 
-<?
+
+<?php include 'includes/footer.php'; ?>

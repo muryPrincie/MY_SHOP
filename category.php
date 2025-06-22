@@ -76,3 +76,10 @@ include 'includes/header.php';
 <?php endif; ?>
 
 <?php include 'includes/footer.php'; ?>
+<style>
+body {
+    background: url('assets/img/DC3.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+}
+</style>

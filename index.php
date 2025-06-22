@@ -60,3 +60,9 @@ include 'includes/header.php';
 </section>
 
 <?php include 'includes/footer.php'; ?>
+<style>
+body {
+    background: url('assets/img/valo.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+}
