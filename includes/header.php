@@ -21,10 +21,12 @@ if (isLogged()) {
 <?php if (isLogged()): ?>
 <header>
     <div class="container">
-        <h1><a href="index.php">My Shop</a></h1>
+        <h1><a href="index.php">JUMP ERA</a></h1>
         <nav>
             <a href="index.php">Accueil</a>
-            <a href="cart.php">Panier</a>
+            <a href="cart.php" class="cart-icon" title="Panier">
+                <img src="/assets/img/basket-cart.png" alt="Panier" />Panier
+            </a>
             
             <!-- Catégories dynamiques -->
             <?php foreach ($categories as $cat): ?>
@@ -35,10 +37,6 @@ if (isLogged()) {
             
             <a href="logout.php">Déconnexion</a>
         </nav>
-        <form action="search.php" method="get" class="search-form">
-            <input type="text" name="q" placeholder="Recherche..." required />
-            <button type="submit">🔍</button>
-        </form>
     </div>
 </header>
 <?php endif; ?>

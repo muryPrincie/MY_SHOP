@@ -3,9 +3,6 @@ require_once 'includes/config.php';
 require_once 'includes/functions.php';
 require_once 'includes/auth.php';
 
-
-
-
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
@@ -51,34 +48,47 @@ if (!empty($_SESSION['cart'])) {
 }
 ?>
 
-<h2>Mon panier</h2>
+<h2 class="cart-title">Mon panier</h2>
 
-<?php if (empty($cart_products)): ?>
-    <p>Votre panier est vide.</p>
-<?php else: ?>
-    <table>
-        <thead>
-            <tr>
-                <th>Produit</th>
-                <th>Prix unitaire</th>
-                <th>Quantité</th>
-                <th>Sous-total</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($cart_products as $product): ?>
+<div class="cart-container">
+    <?php if (empty($cart_products)): ?>
+        <p class="empty-cart">Votre panier est vide.</p>
+    <?php else: ?>
+        <table class="cart-table">
+            <thead>
                 <tr>
-                    <td><?= htmlspecialchars($product['name']) ?></td>
-                    <td><?= number_format($product['price'], 0, ',', ' ') ?> €</td>
-                    <td><?= $_SESSION['cart'][$product['id']] ?></td>
-                    <td><?= number_format($product['price'] * $_SESSION['cart'][$product['id']], 0, ',', ' ') ?> €</td>
-                    <td><a href="cart.php?remove=<?= $product['id'] ?>">Supprimer</a></td>
+                    <th>Produit</th>
+                    <th>Prix unitaire</th>
+                    <th>Quantité</th>
+                    <th>Sous-total</th>
+                    <th>Action</th>
                 </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-    <p><strong>Total :</strong> <?= number_format($total, 0, ',', ' ') ?> €</p>
-<?php endif; ?>
+            </thead>
+            <tbody>
+                <?php foreach ($cart_products as $product): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($product['name']) ?></td>
+                        <td><?= number_format($product['price'], 0, ',', ' ') ?> €</td>
+                        <td><?= $_SESSION['cart'][$product['id']] ?></td>
+                        <td><?= number_format($product['price'] * $_SESSION['cart'][$product['id']], 0, ',', ' ') ?> €</td>
+                        <td><a href="cart.php?remove=<?= $product['id'] ?>" class="remove-btn">Supprimer</a></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <p class="cart-total"><strong>Total :</strong> <?= number_format($total, 0, ',', ' ') ?> €</p>
+    <?php endif; ?>
+</div>
 
 <?php include 'includes/footer.php'; ?>
+<style>
+body {
+    background: url('assets/img/DC4.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+}
+
+.cart-title {
+    color: white;
+}
+</style>

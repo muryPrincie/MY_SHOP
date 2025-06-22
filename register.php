@@ -34,6 +34,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 include 'includes/header.php';
 ?>
 
+<style>
+body {
+    background: url('assets/img/DC1.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+}
+h2{
+    color: white;
+}
+.form-toggle {
+    text-align: center;
+    color: white;
+}
+.form-toggle a {
+    color: white;
+    text-decoration: underline;
+}
+.message.error {
+    background-color: rgba(255, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.message.success {
+    background-color: rgba(0, 128, 0, 0.7);
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+input, button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    width: 90%;
+    max-width: 300px;
+    border-radius: 5px;
+    border: none;
+}
+button {
+    background-color: #222;
+    color: white;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #555;
+}
+
+
+</style>
+
 <h2>Inscription</h2>
 
 <?php if ($success): ?>
