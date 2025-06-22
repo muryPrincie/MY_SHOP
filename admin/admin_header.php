@@ -22,6 +22,9 @@ if (!isset($_SESSION['user_id']) || ($_SESSION['admin'] ?? 0) != 1) {
 </head>
 <body>
     <h2>Zone Admin : <?= htmlspecialchars($_SESSION['username']) ?></h2>
+    <div style="text-align:center; margin-bottom: 20px;">
+    <img src="../assets/img/jumpera.png" alt="Logo Jumper" style="max-width: 200px; height: auto;">
+</div>
     <nav class="admin-nav">
         <ul>
             <li><a href="products.php">Produits</a></li>

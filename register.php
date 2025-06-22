@@ -85,6 +85,9 @@ button:hover {
 </style>
 
 <h2>Inscription</h2>
+<div style="text-align:center; margin-bottom: 20px;">
+    <img src="assets/img/jumperab&w.png" alt="Logo Jumper" style="max-width: 200px; height: auto;">
+</div>
 
 <?php if ($success): ?>
     <div class="message success">Inscription réussie. <a href="login.php">Connectez-vous ici</a>.</div>

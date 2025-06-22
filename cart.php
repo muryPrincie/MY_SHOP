@@ -7,7 +7,7 @@ if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 
-// Ajouter produit au panier
+// +1 au panier
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
     $product_id = (int) ($_POST['product_id'] ?? 0);
     $quantity = (int) ($_POST['quantity'] ?? 1);
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
     exit();
 }
 
-// Supprimer un produit du panier
+// -1 au panier
 if (isset($_GET['remove'])) {
     $remove_id = (int) $_GET['remove'];
     if (isset($_SESSION['cart'][$remove_id])) {

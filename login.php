@@ -65,6 +65,9 @@ include 'includes/header.php';
 </style>
 
 <h2 style="text-align:center; color:#222;">Connexion</h2>
+<div style="text-align:center; margin-bottom: 20px;">
+    <img src="assets/img/jumperab&w.png" alt="Logo Jumper" style="max-width: 200px; height: auto;">
+</div>
 
 <?php foreach ($errors as $error): ?>
     <div class="message error"><?=htmlspecialchars($error)?></div>

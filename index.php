@@ -3,14 +3,14 @@ require_once 'includes/auth.php';
 include 'includes/header.php';
 ?>
 
-<!-- Section Nouveauté en haut -->
+
 <section class="highlight-card container">
     <h2>Nouveauté : Air Jordan 4 Retro "Fire Red"</h2>
     <p>La mythique Jordan 4 revient dans sa version Fire Red, alliance parfaite entre performance et style.</p>
     <a href="product.php?id=20" class="button">Voir le produit</a>
 </section>
 
-<!-- Vidéo promo au centre -->
+
 <div class="video-container container">
     <video autoplay muted loop playsinline class="background-video">
         <source src="assets/videos/Mens_Basketball _Hype_Video.mp4" type="video/mp4">
@@ -18,7 +18,7 @@ include 'includes/header.php';
     </video>
 </div>
 
-<!-- Cartes promo à gauche et droite de la vidéo -->
+
 <section class="side-cards">
     <div class="side-card left">
         <img src="assets/img/products/tshirt_jordan_flight.jpg" alt="T-shirt Jordan">
@@ -35,7 +35,6 @@ include 'includes/header.php';
     </div>
 </section>
 
-<!-- Cartes supplémentaires sous la vidéo -->
 <section class="promo-cards">
     <div class="promo-card">
         <img src="assets/img/products/ballon_spalding_tf1000.jpg" alt="Ballon Spalding">
@@ -65,5 +64,8 @@ include 'includes/header.php';
 body {
     background: url('assets/img/valo.jpeg') no-repeat center center fixed;
     background-size: cover;
+}
+h2 {
     color: white;
 }
+</style>

@@ -1,5 +1,5 @@
 <?php
-// includes/config.php
+
 $host = '127.0.0.1';
 $db   = 'my_shop';
 $user = 'Princie';      
