@@ -24,7 +24,9 @@ if (isLogged()) {
         <h1><a href="index.php">My Shop</a></h1>
         <nav>
             <a href="index.php">Accueil</a>
-            <a href="cart.php">Panier</a>
+            <a href="cart.php" class="cart-icon" title="Panier">
+                <img src="/assets/img/basket-cart.png" alt="Panier" />Panier
+            </a>
             
             <!-- Catégories dynamiques -->
             <?php foreach ($categories as $cat): ?>
@@ -35,7 +37,6 @@ if (isLogged()) {
             
             <a href="logout.php">Déconnexion</a>
         </nav>
-    
     </div>
 </header>
 <?php endif; ?>

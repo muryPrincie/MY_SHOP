@@ -20,9 +20,24 @@ if (!$category) {
     exit();
 }
 
-// Récupère les produits de la catégorie
-$stmt = $pdo->prepare("SELECT * FROM products WHERE category_id = ? ORDER BY name");
-$stmt->execute([$category_id]);
+// Pagination
+$products_per_page = 4; // 4 produits par page
+$current_page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int) $_GET['page'] : 1;
+$offset = ($current_page - 1) * $products_per_page;
+
+// Nombre total de produits dans la catégorie
+$stmtCount = $pdo->prepare("SELECT COUNT(*) FROM products WHERE category_id = ?");
+$stmtCount->execute([$category_id]);
+$total_products = $stmtCount->fetchColumn();
+
+$total_pages = ceil($total_products / $products_per_page);
+
+// Récupère les produits paginés
+$stmt = $pdo->prepare("SELECT * FROM products WHERE category_id = ? ORDER BY name LIMIT ? OFFSET ?");
+$stmt->bindValue(1, $category_id, PDO::PARAM_INT);
+$stmt->bindValue(2, $products_per_page, PDO::PARAM_INT);
+$stmt->bindValue(3, $offset, PDO::PARAM_INT);
+$stmt->execute();
 $products = $stmt->fetchAll();
 
 include 'includes/header.php';
@@ -40,6 +55,21 @@ include 'includes/header.php';
                 <a class="button" href="product.php?id=<?= $product['id'] ?>">Voir le produit</a>
             </div>
         <?php endforeach; ?>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+        <?php if ($current_page > 1): ?>
+            <a href="?id=<?= $category_id ?>&page=<?= $current_page - 1 ?>">&laquo; Précédent</a>
+        <?php endif; ?>
+
+        <?php for ($page = 1; $page <= $total_pages; $page++): ?>
+            <a href="?id=<?= $category_id ?>&page=<?= $page ?>" <?= ($page == $current_page) ? 'class="active"' : '' ?>><?= $page ?></a>
+        <?php endfor; ?>
+
+        <?php if ($current_page < $total_pages): ?>
+            <a href="?id=<?= $category_id ?>&page=<?= $current_page + 1 ?>">Suivant &raquo;</a>
+        <?php endif; ?>
     </div>
 <?php else: ?>
     <p>Aucun produit dans cette catégorie.</p>
