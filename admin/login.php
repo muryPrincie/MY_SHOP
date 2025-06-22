@@ -17,13 +17,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$username]);
         $user = $stmt->fetch();
 
-        // DEBUG : Affiche ce qui est reçu et ce qui est trouvé en BDD
+       
         var_dump('Username reçu : ', $username);
         var_dump('Utilisateur trouvé : ', $user);
-        exit(); // stop pour voir les infos
+        exit(); 
 
         if ($user && password_verify($password, $user['password'])) {
-            // Connexion réussie
+           
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['admin'] = $user['admin'] ?? 0;
