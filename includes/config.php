@@ -10,7 +10,7 @@ if ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_NAME'] === '127.
 } else {
     // Configuration InfinityFree
     $host = 'sql303.infinityfree.com';
-    $db   = 'if0_40096178_XXX';   // remplace XXX par le vrai nom de ta base
+    $db   = 'if0_40096178_my_shop';   // remplace XXX par le vrai nom de ta base
     $user = 'if0_40096178';
     $pass = 'Hins89zJLmrx7hV';
 }
