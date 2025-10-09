@@ -3,19 +3,20 @@ require_once 'includes/auth.php';
 include 'includes/header.php';
 ?>
 
-
 <section class="highlight-card container">
     <h2>Nouveauté : Air Jordan 4 Retro "Fire Red"</h2>
     <p>La mythique Jordan 4 revient dans sa version Fire Red, alliance parfaite entre performance et style.</p>
     <a href="product.php?id=20" class="button">Voir le produit</a>
 </section>
 
-
 <div class="video-container container">
-    <video autoplay muted loop playsinline class="background-video">
-        <source src="assets/videos/Mens_Basketball _Hype_Video.mp4" type="video/mp4">
-        Votre navigateur ne supporte pas la vidéo.
-    </video>
+    <iframe width="100%" height="480"
+        src="https://www.youtube.com/embed/5t7E1qQWegI?autoplay=1&mute=1&loop=1&playlist=5t7E1qQWegI&controls=0&modestbranding=1&showinfo=0&rel=0&fs=0&iv_load_policy=3"
+        title="Mens Basketball Hype Video"
+        frameborder="0"
+        allow="autoplay; encrypted-media"
+        referrerpolicy="strict-origin-when-cross-origin">
+    </iframe>
 </div>
 
 
@@ -58,14 +59,31 @@ include 'includes/header.php';
     </div>
 </section>
 
-
 <?php include 'includes/footer.php'; ?>
+
 <style>
 body {
     background: url('assets/img/valo.jpeg') no-repeat center center fixed;
     background-size: cover;
 }
+
 h2 {
     color: white;
+}
+
+/* --- Style pour encadrer proprement la vidéo YouTube --- */
+.video-container {
+    margin: 40px auto;
+    max-width: 900px;
+    text-align: center;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.video-container iframe {
+    width: 100%;
+    height: 480px;
+    border: none;
 }
 </style>

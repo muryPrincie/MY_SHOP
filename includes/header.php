@@ -29,7 +29,7 @@ if (isLogged()) {
     <title>My Shop</title>
     <link rel="stylesheet" href="/assets/css/style.css" />
     <style>
-        /*Pour le Header*/
+        /* Pour le Header */
         header {
             background: rgba(34, 34, 34, 0.92);
             color: white;
@@ -39,30 +39,36 @@ if (isLogged()) {
 
         header .container {
             max-width: 1200px;
-            margin: auto;
+            margin: 0 auto;
             padding: 0 20px;
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Force le centrage sur PC */
         }
 
-        header h1 a {
-            text-decoration: none;
-            color: #f15a24;
+        /* Logo et nom alignés et centrés */
+        .logo-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .logo-header h1 a {
             font-size: 2rem;
+            color: #f15a24;
+            text-decoration: none;
             font-family: 'Impact', sans-serif;
             letter-spacing: 2px;
         }
 
-        .logo-container {
-            text-align: center;
-            margin: 15px 0;
+        .logo-header .logo {
+            max-height: 60px;
+            width: auto;
         }
 
-        .logo-container img {
-            max-width: 180px;
-            height: auto;
-        }
-
-        /* Partie Nav*/
+        /* Partie Nav */
         nav {
             display: flex;
             flex-direction: column;
@@ -71,6 +77,7 @@ if (isLogged()) {
             flex-wrap: wrap;
             gap: 15px;
             background: transparent;
+            width: 100%;
         }
 
         nav form {
@@ -126,7 +133,6 @@ if (isLogged()) {
             transform: scale(1.05);
         }
 
-
         .nav-cart {
             display: flex;
             justify-content: center;
@@ -147,7 +153,7 @@ if (isLogged()) {
             margin-right: 6px;
         }
 
-        /*Burger format mobile*/
+        /* Burger format mobile */
         .burger {
             display: none;
             flex-direction: column;
@@ -176,8 +182,11 @@ if (isLogged()) {
             transform: rotate(-45deg) translate(5px, -5px);
         }
 
-        
         @media screen and (max-width: 768px) {
+            header .container {
+                align-items: center;
+            }
+
             nav {
                 display: none;
                 flex-direction: column;
@@ -216,6 +225,11 @@ if (isLogged()) {
                 justify-content: center;
                 width: 100%;
             }
+
+            .logo-header {
+                flex-direction: column;
+                gap: 5px;
+            }
         }
     </style>
 </head>
@@ -224,10 +238,10 @@ if (isLogged()) {
     <?php if (isLogged()): ?>
         <header>
             <div class="container">
-                <h1><a href="index.php">JUMP ERA</a></h1>
-
-                <div class="logo-container">
-                    <img src="assets/img/jumperaG.png" alt="Logo Jumper">
+                <!-- Logo et Nom -->
+                <div class="logo-header">
+                    <img src="assets/img/jumperaG.png" alt="Logo Jumper" class="logo">
+                    <h1><a href="index.php">JUMP ERA</a></h1>
                 </div>
 
                 <!-- Le menu du burger -->
