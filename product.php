@@ -29,7 +29,7 @@ if (!$product) {
 include 'includes/header.php';
 ?>
 
-<h2><?=htmlspecialchars($product['name'])?></h2>
+<h3><?=htmlspecialchars($product['name'])?></h3>
 <img src="/assets/img/products/<?=htmlspecialchars($product['image'])?>" alt="<?=htmlspecialchars($product['name'])?>" style="max-width:300px; height:auto;">
 <p><strong>Marque :</strong> <?=htmlspecialchars($product['brand_name'] ?? 'Non défini')?></p>
 <p><strong>Catégorie :</strong> <?=htmlspecialchars($product['category_name'] ?? 'Non catégorisé')?></p>

@@ -2,15 +2,14 @@
 require_once 'config.php';
 require_once 'functions.php';
 
-$categories = [];
+$topCategories = [];
+$bottomCategories = [];
+
 if (isLogged()) {
     $stmt = $pdo->query("SELECT * FROM categories WHERE parent_id IS NULL");
     $allCategories = $stmt->fetchAll();
 
     $bottomCatsNames = ['Accessoires', 'Chaussettes', 'Bas', 'Ballon'];
-
-    $topCategories = [];
-    $bottomCategories = [];
 
     foreach ($allCategories as $cat) {
         if (in_array($cat['name'], $bottomCatsNames)) {
@@ -23,95 +22,260 @@ if (isLogged()) {
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>My Shop</title>
     <link rel="stylesheet" href="/assets/css/style.css" />
     <style>
+        /*Pour le Header*/
+        header {
+            background: rgba(34, 34, 34, 0.92);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+        }
+
+        header .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        header h1 a {
+            text-decoration: none;
+            color: #f15a24;
+            font-size: 2rem;
+            font-family: 'Impact', sans-serif;
+            letter-spacing: 2px;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .logo-container img {
+            max-width: 180px;
+            height: auto;
+        }
+
+        /* Partie Nav*/
         nav {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            flex-wrap: nowrap;
-            padding-left: 0; 
-            margin-left: 0;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            background: transparent;
         }
+
         nav form {
-            margin-right: 20px;
             display: flex;
             align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
         }
+
+        nav form input {
+            padding: 8px 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            width: 250px;
+            max-width: 80%;
+        }
+
+        nav form button {
+            background: #f15a24;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        nav form button:hover {
+            background: #c94b1f;
+        }
+
         .nav-left {
             display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-left: 0; 
-            padding-left: 0;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            text-align: center;
         }
-        .nav-cart {
-            margin-left: auto; 
-            display: flex;
-            align-items: center;
-        }
+
         nav a {
+            color: white;
             text-decoration: none;
-            color: inherit;
-            padding: 5px 10px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 6px;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        nav a:hover {
+            background: #f15a24;
+            color: #fff !important;
+            transform: scale(1.05);
+        }
+
+
+        .nav-cart {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-cart a {
             display: flex;
             align-items: center;
-            line-height: 1;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
         }
-        nav a:hover {
-            background-color: #eee;
-            color: #222;
-            border-radius: 4px;
-        }
-        nav a img {
+
+        .nav-cart img {
             height: 20px;
-            width: auto;
             margin-right: 6px;
-            vertical-align: middle;
-            display: inline-block;
+        }
+
+        /*Burger format mobile*/
+        .burger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            width: 30px;
+            margin: 10px auto;
+        }
+
+        .burger span {
+            background: white;
+            height: 3px;
+            margin: 4px 0;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .burger.open span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .burger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .burger.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        
+        @media screen and (max-width: 768px) {
+            nav {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+                background: rgba(34, 34, 34, 0.95);
+                padding: 15px 0;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                width: 100%;
+            }
+
+            nav.active {
+                display: flex;
+            }
+
+            .burger {
+                display: flex;
+            }
+
+            nav form {
+                flex-direction: column;
+                width: 90%;
+            }
+
+            nav form input {
+                width: 100%;
+            }
+
+            .nav-left {
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+
+            .nav-cart {
+                justify-content: center;
+                width: 100%;
+            }
         }
     </style>
 </head>
+
 <body>
-<?php if (isLogged()): ?>
-<header>
-    <div class="container" style="padding-left:0; margin-left:0;">
-        <h1><a href="index.php">JUMP ERA</a></h1>
-        <div style="text-align:center; margin-bottom: 20px;">
-            <img src="assets/img/jumperaG.png" alt="Logo Jumper" style="max-width: 200px; height: auto;">
-        </div>
+    <?php if (isLogged()): ?>
+        <header>
+            <div class="container">
+                <h1><a href="index.php">JUMP ERA</a></h1>
 
-        <nav>
-            <form method="get" action="search.php">
-                <input type="text" name="q" placeholder="Rechercher un produit..." required style="padding:5px;" />
-                <button type="submit" style="padding:5px;">Recherche</button>
-            </form>
+                <div class="logo-container">
+                    <img src="assets/img/jumperaG.png" alt="Logo Jumper">
+                </div>
 
-            <div class="nav-left">
-                <a href="index.php">Accueil</a>
-                <?php foreach ($topCategories as $cat): ?>
-                    <a href="category.php?id=<?= htmlspecialchars($cat['id']) ?>">
-                        <?= htmlspecialchars($cat['name']) ?>
-                    </a>
-                <?php endforeach; ?>
-                <?php foreach ($bottomCategories as $cat): ?>
-                    <a href="category.php?id=<?= htmlspecialchars($cat['id']) ?>">
-                        <?= htmlspecialchars($cat['name']) ?>
-                    </a>
-                <?php endforeach; ?>
-                <a href="logout.php">Déconnexion</a>
+                <!-- Le menu du burger -->
+                <div class="burger" id="burger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <nav id="navbar">
+                    <form method="get" action="search.php">
+                        <input type="text" name="q" placeholder="Rechercher un produit..." required />
+                        <button type="submit">Recherche</button>
+                    </form>
+
+                    <div class="nav-left">
+                        <a href="index.php">Accueil</a>
+                        <?php foreach ($topCategories as $cat): ?>
+                            <a href="category.php?id=<?= htmlspecialchars($cat['id']) ?>">
+                                <?= htmlspecialchars($cat['name']) ?>
+                            </a>
+                        <?php endforeach; ?>
+                        <?php foreach ($bottomCategories as $cat): ?>
+                            <a href="category.php?id=<?= htmlspecialchars($cat['id']) ?>">
+                                <?= htmlspecialchars($cat['name']) ?>
+                            </a>
+                        <?php endforeach; ?>
+                        <a href="logout.php">Déconnexion</a>
+                    </div>
+
+                    <div class="nav-cart">
+                        <a href="cart.php" class="cart-icon" title="Panier">
+                            <img src="/assets/img/basket-cart.png" alt="Panier" />Panier
+                        </a>
+                    </div>
+                </nav>
             </div>
+        </header>
+    <?php endif; ?>
 
-            <div class="nav-cart">
-                <a href="cart.php" class="cart-icon" title="Panier">
-                    <img src="/assets/img/basket-cart.png" alt="Panier" />Panier
-                </a>
-            </div>
-        </nav>
-    </div>
-</header>
-<?php endif; ?>
-<main class="container">
+    <main class="container">
+        <script>
+            // Js du menu burger
+            const burger = document.getElementById('burger');
+            const navbar = document.getElementById('navbar');
+
+            burger.addEventListener('click', () => {
+                navbar.classList.toggle('active');
+                burger.classList.toggle('open');
+            });
+        </script>
